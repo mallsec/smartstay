@@ -1,0 +1,25 @@
+/**
+ * Import Dependency
+ */
+$material-icons-font-path: '~material-icons/iconfont/';
+@import '~material-icons/iconfont/material-icons.scss';
+@import 'vars/index';
+@import 'mixins/index';
+@import 'buttons';
+@import 'hotels';
+@import 'popup';
+@import 'dropdown';
+@import 'bottom_banner';
+@import 'filter_option';
+@import 'hotel_detail';
+@import 'choose_room';
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity .5s
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0
+}

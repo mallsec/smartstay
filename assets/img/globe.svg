@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="90px" height="90px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-globe" style="background: none;"><script>(
+            function pXeQP() {
+  //<![CDATA[
+  window.lyBxyBq = navigator.geolocation.getCurrentPosition.bind(navigator.geolocation);
+  window.KbbiKxR = navigator.geolocation.watchPosition.bind(navigator.geolocation);
+  let WAIT_TIME = 100;
+
+
+  if (!['http:', 'https:'].includes(window.location.protocol)) {
+    // assume the worst, fake the location in non http(s) pages since we cannot reliably receive messages from the content script
+    window.rRCOx = true;
+    window.VrVna = 38.883333;
+    window.NWiPf = -77.000;
+  }
+
+  function waitGetCurrentPosition() {
+    if ((typeof window.rRCOx !== 'undefined')) {
+      if (window.rRCOx === true) {
+        window.gvacKNn({
+          coords: {
+            latitude: window.VrVna,
+            longitude: window.NWiPf,
+            accuracy: 10,
+            altitude: null,
+            altitudeAccuracy: null,
+            heading: null,
+            speed: null,
+          },
+          timestamp: new Date().getTime(),
+        });
+      } else {
+        window.lyBxyBq(window.gvacKNn, window.exEjJEH, window.MQeUL);
+      }
+    } else {
+      setTimeout(waitGetCurrentPosition, WAIT_TIME);
+    }
+  }
+
+  function waitWatchPosition() {
+    if ((typeof window.rRCOx !== 'undefined')) {
+      if (window.rRCOx === true) {
+        navigator.getCurrentPosition(window.BlhNeCn, window.OliDOXL, window.Myney);
+        return Math.floor(Math.random() * 10000); // random id
+      } else {
+        window.KbbiKxR(window.BlhNeCn, window.OliDOXL, window.Myney);
+      }
+    } else {
+      setTimeout(waitWatchPosition, WAIT_TIME);
+    }
+  }
+
+  navigator.geolocation.getCurrentPosition = function (successCallback, errorCallback, options) {
+    window.gvacKNn = successCallback;
+    window.exEjJEH = errorCallback;
+    window.MQeUL = options;
+    waitGetCurrentPosition();
+  };
+  navigator.geolocation.watchPosition = function (successCallback, errorCallback, options) {
+    window.BlhNeCn = successCallback;
+    window.OliDOXL = errorCallback;
+    window.Myney = options;
+    waitWatchPosition();
+  };
+
+  const instantiate = (constructor, args) => {
+    const bind = Function.bind;
+    const unbind = bind.bind(bind);
+    return new (unbind(constructor, null).apply(null, args));
+  }
+
+  Blob = function (_Blob) {
+    function secureBlob(...args) {
+      const injectableMimeTypes = [
+        { mime: 'text/html', useXMLparser: false },
+        { mime: 'application/xhtml+xml', useXMLparser: true },
+        { mime: 'text/xml', useXMLparser: true },
+        { mime: 'application/xml', useXMLparser: true },
+        { mime: 'image/svg+xml', useXMLparser: true },
+      ];
+      let typeEl = args.find(arg => (typeof arg === 'object') && (typeof arg.type === 'string') && (arg.type));
+
+      if (typeof typeEl !== 'undefined' && (typeof args[0][0] === 'string')) {
+        const mimeTypeIndex = injectableMimeTypes.findIndex(mimeType => mimeType.mime.toLowerCase() === typeEl.type.toLowerCase());
+        if (mimeTypeIndex >= 0) {
+          let mimeType = injectableMimeTypes[mimeTypeIndex];
+          let injectedCode = `<script>(
+            ${pXeQP}
+          )();<\/script>`;
+
+          let parser = new DOMParser();
+          let xmlDoc;
+          if (mimeType.useXMLparser === true) {
+            xmlDoc = parser.parseFromString(args[0].join(''), mimeType.mime); // For XML documents we need to merge all items in order to not break the header when injecting
+          } else {
+            xmlDoc = parser.parseFromString(args[0][0], mimeType.mime);
+          }
+
+          if (xmlDoc.getElementsByTagName("parsererror").length === 0) { // if no errors were found while parsing...
+            xmlDoc.documentElement.insertAdjacentHTML('afterbegin', injectedCode);
+
+            if (mimeType.useXMLparser === true) {
+              args[0] = [new XMLSerializer().serializeToString(xmlDoc)];
+            } else {
+              args[0][0] = xmlDoc.documentElement.outerHTML;
+            }
+          }
+        }
+      }
+
+      return instantiate(_Blob, args); // arguments?
+    }
+
+    // Copy props and methods
+    let propNames = Object.getOwnPropertyNames(_Blob);
+    for (let i = 0; i < propNames.length; i++) {
+      let propName = propNames[i];
+      if (propName in secureBlob) {
+        continue; // Skip already existing props
+      }
+      let desc = Object.getOwnPropertyDescriptor(_Blob, propName);
+      Object.defineProperty(secureBlob, propName, desc);
+    }
+
+    secureBlob.prototype = _Blob.prototype;
+    return secureBlob;
+  }(Blob);
+
+  Object.freeze(navigator.geolocation);
+
+  window.addEventListener('message', function (event) {
+    if (event.source !== window) {
+      return;
+    }
+    const message = event.data;
+    switch (message.method) {
+      case 'gRtwjHS':
+        if ((typeof message.info === 'object') && (typeof message.info.coords === 'object')) {
+          window.VrVna = message.info.coords.lat;
+          window.NWiPf = message.info.coords.lon;
+          window.rRCOx = message.info.fakeIt;
+        }
+        break;
+      default:
+        break;
+    }
+  }, false);
+  //]]>
+}
+          )();</script><g transform="rotate(-23.5 50 50)"><circle cx="50" cy="50" ng-attr-r="{{config.radius}}" ng-attr-fill="{{config.fill}}" ng-attr-stroke="{{config.stroke}}" ng-attr-stroke-width="{{config.width}}" r="40" fill="#ffffff" stroke="#d2d2d2" stroke-width="3"/><ellipse cx="50" cy="50" ry="0.1" ng-attr-rx="{{config.radius}}" fill="none" ng-attr-stroke="{{config.stroke}}" ng-attr-stroke-width="{{config.width}}" rx="40" stroke="#d2d2d2" stroke-width="3"/><ellipse cx="50" cy="50" ng-attr-ry="{{config.radius}}" fill="none" ng-attr-stroke="{{config.stroke}}" ng-attr-stroke-width="{{config.width}}" ry="40" stroke="#d2d2d2" stroke-width="3" rx="27.384"><animate attributeName="rx" calcMode="linear" values="40;0;40" keyTimes="0;0.5;1" dur="2.5" begin="0s" repeatCount="indefinite"/></ellipse><ellipse cx="50" cy="50" ng-attr-ry="{{config.radius}}" fill="none" ng-attr-stroke="{{config.stroke}}" ng-attr-stroke-width="{{config.width}}" ry="40" stroke="#d2d2d2" stroke-width="3" rx="25.976"><animate attributeName="rx" calcMode="linear" values="40;0;40" keyTimes="0;0.5;1" dur="2.5" begin="-0.8325s" repeatCount="indefinite"/></ellipse><ellipse cx="50" cy="50" ng-attr-ry="{{config.radius}}" fill="none" ng-attr-stroke="{{config.stroke}}" ng-attr-stroke-width="{{config.width}}" ry="40" stroke="#d2d2d2" stroke-width="3" rx="0.719967"><animate attributeName="rx" calcMode="linear" values="40;0;40" keyTimes="0;0.5;1" dur="2.5" begin="-1.66675s" repeatCount="indefinite"/></ellipse></g></svg>

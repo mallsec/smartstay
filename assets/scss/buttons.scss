@@ -1,0 +1,17 @@
+//---------------------------------------------buttons
+
+body {
+	.btn_filter {
+		margin-top: 10px;
+
+		font-size: 13px !important;
+		font-weight: 600;
+		color: #fff;
+
+		border-width: 1px !important;
+
+		@include bp($bp) {
+			margin-bottom: 10px;
+		}
+	}
+}
